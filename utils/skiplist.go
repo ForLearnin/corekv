@@ -8,7 +8,7 @@ import (
 )
 
 const (
-	defaultMaxHeight = 48
+	defaultMaxHeight = 48 
 )
 
 type SkipList struct {
