@@ -471,10 +471,27 @@ func (s *SkipListIterator) Prev() {
 	AssertTrue(s.Valid())
 	s.n, _ = s.list.findNear(s.Key(), true, false) // find <. No equality allowed.
 }
-
+//todo 没有具体的返回 这个后续怎么处理呢
 // 找到 >= target 的第一个节点
+// target是实际的key值
 func (s *SkipListIterator) Seek(target []byte) {
 	//implement me here
+	//当前的高度
+	height := s.list.getHeight()
+	head := s.list.getHead()
+	for i := height; i >= 0; i-- {
+		pre := head.tower[height]
+		for pre!=0 {
+         node := s.list.arena.getNode(pre)
+
+		 cmp := CompareKeys(node.key(s.list.arena), target)
+		 if cmp >= 0 {
+		 
+		 }
+		 pre=node.getNextOffset(int(i))
+		}
+	}
+
 }
 
 // 找到 <= target 的第一个节点
