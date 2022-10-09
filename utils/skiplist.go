@@ -2,6 +2,7 @@ package utils
 
 import (
 	"bytes"
+	"fmt"
 	"sync"
 )
 
@@ -174,8 +175,9 @@ func (list *SkipList) Search(key []byte) (e *Entry) {
 func (list *SkipList) Close() error {
 	return nil
 }
-
+//testv for commit
 func calcScore(key []byte) (score float64) {
+	fmt.Print("hello")
 	var hash uint64
 	l := len(key)
 
