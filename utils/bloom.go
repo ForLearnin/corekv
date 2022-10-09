@@ -14,7 +14,10 @@
 
 package utils
 
-import "math"
+import (
+	"fmt"
+	"math"
+)
 
 // Filter is an encoded set of []byte keys.
 type Filter []byte
@@ -45,6 +48,7 @@ func (f Filter) MayContain(h uint32) bool {
 		}
 		h += delta
 	}
+	fmt.Print("hello form test")
 	return true
 }
 
