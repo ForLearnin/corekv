@@ -427,13 +427,17 @@ func (s *SkipListIterator) Rewind() {
 }
 
 func (s *SkipListIterator) Item() Item {
-	return &Entry{
-		Key:       s.Key(),
-		Value:     s.Value().Value,
+
+	 vs := s.list.arena.getVal(s.n.getValueOffset())
+	 
+	 	return &Entry{
+		Key:       s.list.arena.getKey(s.n.keyOffset,s.n.keySize),
+		Value:     vs.Value,
 		ExpiresAt: s.Value().ExpiresAt,
 		Meta:      s.Value().Meta,
 		Version:   s.Value().Version,
 	}
+	 
 }
 
 // Close frees the resources held by the iterator
@@ -447,11 +451,13 @@ func (s *SkipListIterator) Valid() bool { return s.n != nil }
 
 // Key returns the key at the current position.
 func (s *SkipListIterator) Key() []byte {
+	return s.list.arena.getKey(s.n.keyOffset,s.n.keySize)
 	//implement me here
 }
 
 // Value returns value.
 func (s *SkipListIterator) Value() ValueStruct {
+	return s.list.arena.getVal(s.n.getValueOffset())
 	//implement me here
 }
 
@@ -501,6 +507,8 @@ func (s *SkipListIterator) SeekForPrev(target []byte) {
 
 //定位到链表的第一个节点
 func (s *SkipListIterator) SeekToFirst() {
+	node:=s.list.arena.getNode(s.list.headOffset)
+	s.n=node
 	//implement me here
 }
 
